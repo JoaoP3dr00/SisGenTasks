@@ -23,8 +23,9 @@ model Task {
 
 model Usuario {
   id        Int     @id @default(autoincrement())
-  nome      String  @unique
+  nome      String  
   email     String  @unique
+  senha     String  
   tasks     Task[]
 }
 
