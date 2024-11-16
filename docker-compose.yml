@@ -2,6 +2,11 @@
 version: '3.9'
 
 services:
+  app:
+    build: .
+    ports:
+      - "2504:2504"
+
   sgtdb-dock:
     image: postgres
     ports:
@@ -21,6 +26,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: sgtdb
 
 #  adminer:
 #    image: adminer
