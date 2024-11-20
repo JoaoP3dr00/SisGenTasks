@@ -1,12 +1,4 @@
-# Use postgres/example user/password credentials
-version: '3.9'
-
 services:
-  app:
-    build: .
-    ports:
-      - "2504:2504"
-
   sgtdb-dock:
     image: postgres
     ports:
@@ -18,7 +10,7 @@ services:
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
-    #volumes:
+    # volumes:
     #  - type: tmpfs
     #    target: /dev/shm
     #    tmpfs:
@@ -27,6 +19,15 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: sgtdb
+  
+  app:
+    build: .
+    depends_on:
+      - sgtdb-dock
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@sgtdb-dock:5432/sgtdb?schema=public"
+    ports:
+      - "2504:2504"
 
 #  adminer:
 #    image: adminer
