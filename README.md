@@ -27,6 +27,7 @@
   Este projeto contempla uma aplicação web que tem como principal objetivo gerenciar seus usuários e tarefas, permitindo a realização de CRUD para usuários, tarefas e tarefas principais, que são as principais entidades do projeto, explorando os relacionamentos 1:1, 1:N e N:N entre elas. 
   Para o desenvolvimento da aplicação e mapeamento das rotas HTTP foi utilizado o framework NESTJS, aliado do ORM Prisma, que auxilia na criação e conexão ao banco de dados PostgreSQL. 
   Com o objetivo de abstrair melhor a aplicação, tanto o banco de dados quanto a aplicação estão em containers Docker.
+  O projeto conta também com uma documentação automática pelo Swagger.
 </p>
 
 
@@ -37,6 +38,7 @@
 	  <li>Prisma</li>
 	  <li>PostgreSQL</li>
 	  <li>Docker</li>
+    <li>Swagger</li>
   </ul>
 </p>
 

@@ -21,7 +21,11 @@ services:
       POSTGRES_DB: sgtdb
   
   app:
-    build: .
+    build: 
+      context: .
+    stdin_open: true
+    tty: true
+    command: yarn start
     depends_on:
       - sgtdb-dock
     environment:

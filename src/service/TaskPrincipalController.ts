@@ -3,11 +3,38 @@ import { PrismaService } from "src/dataac/conn/prisma.conn";
 import { TaskDTO } from "src/domain/dto/TaskDTO";
 import { Response } from "express";
 import { GetTaskDTO } from "src/domain/dto/GetTaskDTO";
+import { ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiInternalServerErrorResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation } from "@nestjs/swagger";
 
 @Controller('/task-principal')
 export class TaskPrincipalController {
     constructor(private prisma: PrismaService){}
 
+    @ApiOperation({ summary: 'Criar uma task', description: 'Este endpoint permite criar uma nova task com os detalhes fornecidos no JSON.' })
+    @ApiBody({
+        description: 'Estrutura do JSON esperado',
+        examples: {
+            exemplo1: {
+                value: {
+                    name:"Dar banho no Ernesto",
+                    tipos: ["Cuidado do PET"],
+                    descricao:"Usar shampoo próprio.",
+                    usuarioId:5
+                }
+            }
+        },
+    })
+    @ApiCreatedResponse({
+        description: "Task criada"
+    })
+    @ApiNotFoundResponse({
+        description: "Erro ao tentar encontrar o usuário com o id fornecido"
+    })
+    @ApiConflictResponse({
+        description: "Erro ao tentar cadastrar uma task que já está cadastrada com o nome fornecido"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "Erro interno do servidor"
+    })
     @Post('/create')
     async createTask(@Body() taskDTO: TaskDTO, @Res() res: Response){
         try{
@@ -65,6 +92,16 @@ export class TaskPrincipalController {
         }
     }
 
+    @ApiOperation({ summary: 'Deletar uma task', description: 'Este endpoint permite deletar uma task com um id fornecido como parâmetro da URL, como /delete/1.' })
+    @ApiNotFoundResponse({
+        description: "Task não encontrada"
+    })
+    @ApiOkResponse({
+        description: "Usuário deletado"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "Erro interno do servidor"
+    })
     @Delete('/delete/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
     async deleteTask(@Param('id') id: number, @Res() res: Response) { 
@@ -87,6 +124,26 @@ export class TaskPrincipalController {
         }
     }
 
+    @ApiOperation({ summary: 'Buscar uma task', description: 'Este endpoint permite buscar uma task com em um id fornecido no JSON.' })
+    @ApiBody({
+        description: 'Estrutura do JSON esperado',
+        examples: {
+            exemplo1: {
+                value: {
+                    id:2
+                },
+            }
+        },
+    })
+    @ApiNotFoundResponse({
+        description: "Task não encontrada"
+    })
+    @ApiOkResponse({
+        description: "Task encontrada e retornada"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "Erro interno do servidor"
+    })
     @Get('/')
     async getTaskById(@Body() getTaskDTO: GetTaskDTO, @Res() res: Response) {
         try {
@@ -115,6 +172,13 @@ export class TaskPrincipalController {
         }
     }
    
+    @ApiOperation({ summary: 'Buscar tasks', description: 'Este endpoint permite buscar todas as tasks apenas acessando ele.' })
+    @ApiOkResponse({
+        description: "Tasks retornadas"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "Erro interno do servidor"
+    })
     @Get("/todos")
     async getAllTask(@Res() res: Response) {
         try {
@@ -134,6 +198,29 @@ export class TaskPrincipalController {
         }
     }
 
+    @ApiOperation({ summary: 'Atualizar uma task', description: 'Este endpoint permite atualizar uma task com um id fornecido na URL e os dados no JSON.' })
+    @ApiBody({
+        description: 'Estrutura da URL: /atualizar/3 e estrutura do JSON abaixo',
+        examples: {
+            exemplo1: {
+                value: {
+                    name:"Almoçar",
+                    tipos: ["Rotina", "Alimentação"],
+                    descricao:"Comer das 20h-21h.",
+                    usuarioId:3
+                }
+            }
+        },
+    })
+    @ApiNotFoundResponse({
+        description: "Task não encontrada"
+    })
+    @ApiOkResponse({
+        description: "Task atualizada com sucesso"
+    })
+    @ApiInternalServerErrorResponse({
+        description: "Erro interno do servidor"
+    })
     @Patch('/atualizar/:id')
     async updateTask(@Param('id') id: number, @Body() taskDTO: TaskDTO, @Res() res: Response){
         try {
