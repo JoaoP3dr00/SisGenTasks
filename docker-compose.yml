@@ -23,9 +23,6 @@ services:
   app:
     build: 
       context: .
-    stdin_open: true
-    tty: true
-    command: yarn start
     depends_on:
       - sgtdb-dock
     environment:

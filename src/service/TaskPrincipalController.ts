@@ -124,53 +124,53 @@ export class TaskPrincipalController {
         }
     }
 
-    @ApiOperation({ summary: 'Buscar uma task', description: 'Este endpoint permite buscar uma task com em um id fornecido no JSON.' })
-    @ApiBody({
-        description: 'Estrutura do JSON esperado',
-        examples: {
-            exemplo1: {
-                value: {
-                    id:2
-                },
-            }
-        },
-    })
-    @ApiNotFoundResponse({
-        description: "Task não encontrada"
-    })
-    @ApiOkResponse({
-        description: "Task encontrada e retornada"
-    })
-    @ApiInternalServerErrorResponse({
-        description: "Erro interno do servidor"
-    })
-    @Get('/')
-    async getTaskById(@Body() getTaskDTO: GetTaskDTO, @Res() res: Response) {
-        try {
-            const task = await this.prisma.taskPrincipal.findUnique({ 
-                where: { 
-                    id: +getTaskDTO.id 
-                },
-                include: {
-                    tipos: true
-                }
-            });
+    // @ApiOperation({ summary: 'Buscar uma task', description: 'Este endpoint permite buscar uma task com em um id fornecido no JSON.' })
+    // @ApiBody({
+    //     description: 'Estrutura do JSON esperado',
+    //     examples: {
+    //         exemplo1: {
+    //             value: {
+    //                 id:2
+    //             },
+    //         }
+    //     },
+    // })
+    // @ApiNotFoundResponse({
+    //     description: "Task não encontrada"
+    // })
+    // @ApiOkResponse({
+    //     description: "Task encontrada e retornada"
+    // })
+    // @ApiInternalServerErrorResponse({
+    //     description: "Erro interno do servidor"
+    // })
+    // @Get('/')
+    // async getTaskById(@Body() getTaskDTO: GetTaskDTO, @Res() res: Response) {
+    //     try {
+    //         const task = await this.prisma.taskPrincipal.findUnique({ 
+    //             where: { 
+    //                 id: +getTaskDTO.id 
+    //             },
+    //             include: {
+    //                 tipos: true
+    //             }
+    //         });
 
-            if (!task) {
-                return res.status(HttpStatus.NOT_FOUND).json({ 
-                    message: 'Tarefa não encontrada' 
-                });
-            }
+    //         if (!task) {
+    //             return res.status(HttpStatus.NOT_FOUND).json({ 
+    //                 message: 'Tarefa não encontrada' 
+    //             });
+    //         }
 
-            return res.status(HttpStatus.OK).json(task);
-        } catch (error) {
-            console.error(error);
+    //         return res.status(HttpStatus.OK).json(task);
+    //     } catch (error) {
+    //         console.error(error);
 
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
-                message: 'Erro interno' 
-            });
-        }
-    }
+    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
+    //             message: 'Erro interno' 
+    //         });
+    //     }
+    // }
    
     @ApiOperation({ summary: 'Buscar tasks', description: 'Este endpoint permite buscar todas as tasks apenas acessando ele.' })
     @ApiOkResponse({

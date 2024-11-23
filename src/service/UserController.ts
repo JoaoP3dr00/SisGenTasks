@@ -98,47 +98,47 @@ export class UserController {
         }
     }
 
-    @ApiOperation({ summary: 'Buscar um usuário', description: 'Este endpoint permite buscar um usuário com em um id fornecido no JSON.' })
-    @ApiBody({
-        description: 'Estrutura do JSON esperado',
-        examples: {
-            exemplo1: {
-                value: {
-                    id:2
-                },
-            }
-        },
-    })
-    @ApiNotFoundResponse({
-        description: "Usuário não encontrado"
-    })
-    @ApiOkResponse({
-        description: "Usuário encontrado e retornado"
-    })
-    @ApiInternalServerErrorResponse({
-        description: "Erro interno do servidor"
-    })
-    @Get('/')
-    async getUserById(@Body() getUserDTO: GetUserDTO, @Res() res: Response) {
-        try {
-            const u = await this.prisma.usuario.findUnique({ where: { id: +getUserDTO.id } });
+    // @ApiOperation({ summary: 'Buscar um usuário', description: 'Este endpoint permite buscar um usuário com em um id fornecido no JSON.' })
+    // @ApiBody({
+    //     description: 'Estrutura do JSON esperado',
+    //     examples: {
+    //         exemplo1: {
+    //             value: {
+    //                 id:2
+    //             },
+    //         }
+    //     },
+    // })
+    // @ApiNotFoundResponse({
+    //     description: "Usuário não encontrado"
+    // })
+    // @ApiOkResponse({
+    //     description: "Usuário encontrado e retornado"
+    // })
+    // @ApiInternalServerErrorResponse({
+    //     description: "Erro interno do servidor"
+    // })
+    // @Get('/')
+    // async getUserById(@Body() getUserDTO: GetUserDTO, @Res() res: Response) {
+    //     try {
+    //         const u = await this.prisma.usuario.findUnique({ where: { id: +getUserDTO.id } });
 
-            if (!u) {
-                return res.status(HttpStatus.NOT_FOUND).json({ 
-                    message: 'Usuário não encontrado' 
-                });
-            }
+    //         if (!u) {
+    //             return res.status(HttpStatus.NOT_FOUND).json({ 
+    //                 message: 'Usuário não encontrado' 
+    //             });
+    //         }
 
-            //return { status: HttpStatus.OK, message: u };
-            return res.status(HttpStatus.OK).json(u);
-        } catch (error) {
-            console.error(error);
+    //         //return { status: HttpStatus.OK, message: u };
+    //         return res.status(HttpStatus.OK).json(u);
+    //     } catch (error) {
+    //         console.error(error);
 
-            return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
-                message: 'Erro interno' 
-            });
-        }
-    }
+    //         return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
+    //             message: 'Erro interno' 
+    //         });
+    //     }
+    // }
 
     @ApiOperation({ summary: 'Buscar usuários', description: 'Este endpoint permite buscar todos os usuários apenas acessando ele, pode retornar um array vazio caso não existam.' })
     @ApiOkResponse({
