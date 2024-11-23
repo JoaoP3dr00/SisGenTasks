@@ -9,7 +9,7 @@ import { ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiInternalServerErro
 export class TaskPrincipalController {
     constructor(private prisma: PrismaService){}
 
-    @ApiOperation({ summary: 'Criar uma task', description: 'Este endpoint permite criar uma nova task com os detalhes fornecidos no JSON.' })
+    @ApiOperation({ summary: 'Criarg task', description: 'Este endpoint permite criar uma nova task com os detalhes fornecidos no JSON.' })
     @ApiBody({
         description: 'Estrutura do JSON esperado',
         examples: {
@@ -92,7 +92,7 @@ export class TaskPrincipalController {
         }
     }
 
-    @ApiOperation({ summary: 'Deletar uma task', description: 'Este endpoint permite deletar uma task com um id fornecido como parâmetro da URL, como /delete/1.' })
+    @ApiOperation({ summary: 'Deletar task', description: 'Este endpoint permite deletar uma task com um id fornecido como parâmetro da URL, como /delete/1.' })
     @ApiNotFoundResponse({
         description: "Task não encontrada"
     })
