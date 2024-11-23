@@ -5,8 +5,6 @@ services:
       - "5431:5432"
     container_name: "sgtdb-dock"
     restart: always
-    volumes:
-      - ./bd-backup:/var/lib/postgresql/data
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
@@ -35,6 +33,3 @@ services:
 #    restart: always
 #    ports:
 #      - 8080:8080
-
-volumes:
-  bd-backup:
